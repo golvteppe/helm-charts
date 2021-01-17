@@ -21,7 +21,7 @@ jobs:
     
     # Create namespace if doesn't exist
     - run: |
-        kubectl create namespace ${{ github.sha }} --dry-run -o json | kubectl apply -f -
+        kubectl create namespace ${{ github.head_ref }} --dry-run -o json | kubectl apply -f -
         
     - run: |
-        helm install ${{ github.sha }} chart-source/azure-vote/ --namespace ${{ github.sha }}    
+        helm install app-${{ github.head_ref }}  chart-source/azure-vote/ --namespace ${{ github.head_ref }}   
