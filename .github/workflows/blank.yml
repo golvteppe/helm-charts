@@ -1,4 +1,4 @@
-on: [push, workflow_dispatch]
+on: [workflow_dispatch]
 
 # Environment variables available to all jobs and steps in this workflow
 env:
@@ -17,13 +17,10 @@ jobs:
         creds: '${{ secrets.AZURE_CREDENTIALS }}'
         cluster-name: ${{ env.CLUSTER_NAME }}
         resource-group: ${{ env.CLUSTER_RESOURCE_GROUP }}
-      id: login
-
-    - run: echo running on branch ${GITHUB_REF##*/}
     
     # Create namespace if doesn't exist
     - run: |
-        kubectl create namespace ${{ github.head_ref }} --dry-run -o json | kubectl apply -f -
+        kubectl create namespace ${GITHUB_REF##*/} --dry-run -o json | kubectl apply -f -
         
     - run: |
-        helm install app-${{ github.head_ref }}  chart-source/azure-vote/ --namespace ${{ github.head_ref }}   
+        helm install app-${GITHUB_REF##*/}  chart-source/azure-vote/ --namespace ${GITHUB_REF##*/}  
