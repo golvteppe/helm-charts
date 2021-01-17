@@ -1,5 +1,4 @@
-on: [workflow_dispatch]
-
+on: [workflow_dispatch, pull_request]
 # Environment variables available to all jobs and steps in this workflow
 env:
   CLUSTER_NAME: aks-bjorn-erik
