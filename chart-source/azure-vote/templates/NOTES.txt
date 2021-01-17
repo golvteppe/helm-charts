@@ -1,5 +1,5 @@
 
-The Azure Vote application has been started now.
+The Azure Vote application has been started.
 
 Title: {{ .Values.title }}
 Vote 1 value: {{ .Values.value1 }}
