@@ -1,0 +1,29 @@
+on: [push, workflow_dispatch]
+
+# Environment variables available to all jobs and steps in this workflow
+env:
+  CLUSTER_NAME: aks-bjorn-erik
+  CLUSTER_RESOURCE_GROUP: rg-idporten-aks-bjorn-erik
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@main
+    
+    # Set the target Azure Kubernetes Service (AKS) cluster. 
+    - uses: azure/aks-set-context@v1
+      with:
+        creds: '${{ secrets.AZURE_CREDENTIALS }}'
+        cluster-name: ${{ env.CLUSTER_NAME }}
+        resource-group: ${{ env.CLUSTER_RESOURCE_GROUP }}
+      id: login
+
+    - run: echo running on branch ${GITHUB_REF##*/}
+    
+    # Create namespace if doesn't exist
+    - run: |
+        kubectl create namespace ${{ github.head_ref }} --dry-run -o json | kubectl apply -f -
+        
+    - run: |
+        helm install app-${{ github.head_ref }}  chart-source/azure-vote/ --namespace ${{ github.head_ref }}   
