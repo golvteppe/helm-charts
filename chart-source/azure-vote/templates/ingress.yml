@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: azure-vote-ingress
+  namespace: {{.Release.Namespace}} 
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: {{.Release.Namespace}}.h16.io
+    http:
+      paths:
+      - path: /
+        backend:
+            serviceName: azure-vote-front
+            servicePort: 80
