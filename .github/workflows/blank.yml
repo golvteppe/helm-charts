@@ -1,5 +1,10 @@
 on: [push]
 
+# Environment variables available to all jobs and steps in this workflow
+env:
+  CLUSTER_NAME: aks-bjorn-erik
+  CLUSTER_RESOURCE_GROUP: rg-idporten-aks-bjorn-erik
+
 jobs:
   build:
     runs-on: ubuntu-latest
