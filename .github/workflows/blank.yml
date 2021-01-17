@@ -21,15 +21,6 @@ jobs:
     # Create namespace if doesn't exist
     - run: |
         kubectl create namespace ${{ github.sha }} --dry-run -o json | kubectl apply -f -
-    
-    # Deploy app to AKS
-    - uses: azure/k8s-deploy@v1
-      with:
-        manifests: |
-          manifests/deployment.yml
-          manifests/service.yml
-        images: |
-          ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.APP_NAME }}:${{ github.sha }}
-        imagepullsecrets: |
-          ${{ env.SECRET }}
-        namespace: ${{ github.sha }}
+        
+    - run: |
+        helm install ${{ github.sha }} chart-source/azure-vote/ --namespace ${{ github.sha }}    
