@@ -18,6 +18,8 @@ jobs:
         cluster-name: ${{ env.CLUSTER_NAME }}
         resource-group: ${{ env.CLUSTER_RESOURCE_GROUP }}
       id: login
+
+    - run: echo running on branch ${GITHUB_REF##*/}
     
     # Create namespace if doesn't exist
     - run: |
