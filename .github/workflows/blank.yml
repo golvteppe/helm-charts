@@ -1,8 +1,8 @@
-name: delete ondemand env
+name: Create ondemand environment
 
 on: 
   pull_request:
-    types: [ unlabeled ]
+    types: [ labeled ]
 
 env:
   CLUSTER_NAME: aks-bjorn-erik
@@ -28,3 +28,14 @@ jobs:
         
     - run: |
         helm install app-${{ github.event.pull_request.head.ref }}  chart-source/azure-vote/ --namespace ${{ github.event.pull_request.head.ref }} 
+        
+    - uses: actions/github-script@v3
+      with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: ${{ github.event.pull_request.head.ref }}
+            })
