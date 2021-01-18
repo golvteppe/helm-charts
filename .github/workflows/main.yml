@@ -23,5 +23,5 @@ jobs:
 
       - name: Run a multi-line script
         run: |
-          echo ${{ github.event.pull_request.head.sha::8 }}
+          echo ${{ github.event.pull_request.head.sha }}
           echo ${{ github.event.pull_request.head.ref }}
