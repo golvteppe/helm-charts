@@ -38,5 +38,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: "URL til feature-branch ${{ github.event.pull_request.head.ref }}: ${{ github.event.pull_request.head.ref }}.${{ env.ONDEMAND_BASE_URL }}"
+              body: "URL til feature-branch **${{ github.event.pull_request.head.ref }}**: \n\n https://${{ github.event.pull_request.head.ref }}.${{ env.ONDEMAND_BASE_URL }}"
             })
