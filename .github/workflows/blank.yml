@@ -22,15 +22,4 @@ jobs:
         kubectl create namespace ${GITHUB_REF##*/} --dry-run -o json | kubectl apply -f -
         
     - run: |
-        helm install app-${GITHUB_REF##*/}  chart-source/azure-vote/ --namespace ${GITHUB_REF##*/}  
-        
-    - uses: actions/github-script@v3
-      with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            github.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: "${GITHUB_REF}"
-            })
+        helm install app-${GITHUB_REF##*/}  chart-source/azure-vote/ --namespace ${GITHUB_REF##*/} 
