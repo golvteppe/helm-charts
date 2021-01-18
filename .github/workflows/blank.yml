@@ -25,4 +25,4 @@ jobs:
         kubectl create namespace ${{ github.event.pull_request.head.ref }} --dry-run -o json | kubectl apply -f -
         
     - run: |
-        helm install app-${{ github.event.pull_request.head.sha }}  chart-source/azure-vote/ --namespace ${{ github.event.pull_request.head.ref }} 
+        helm install app-${{ github.event.pull_request.head.ref }}  chart-source/azure-vote/ --namespace ${{ github.event.pull_request.head.ref }} 
