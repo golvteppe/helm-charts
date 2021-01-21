@@ -1,5 +1,6 @@
 on: 
-  workflow_dispatch:
+  pull_request:
+    types: [ labeled ]
 
 env:
   CLUSTER_NAME: aks-bjorn-erik
@@ -7,7 +8,10 @@ env:
 
 jobs:
   build:
-    if: contains(github.event.issue.labels.*.name, 'ondemand')
+    if: ${{ github.event.label.name == 'ondemand' }}
+    strategy:
+      matrix:
+        namespace: [codeceptjs, integration-test]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@main
@@ -21,7 +25,7 @@ jobs:
     
     # Create namespace if doesn't exist
     - run: |
-        kubectl create namespace ${{ github.event.pull_request.head.ref }}} --dry-run -o json | kubectl apply -f -
+        kubectl create namespace ${{ github.event.pull_request.head.ref }}-${{ matrix.namespace }} --dry-run -o json | kubectl apply -f -
         
     - run: |
-        helm install app-${{ github.event.pull_request.head.sha }}  chart-source/azure-vote/ --namespace ${{ github.event.pull_request.head.ref }} 
+        helm install app-${{ github.event.pull_request.head.ref }}-${{ matrix.namespace }}  chart-source/azure-vote/ --namespace ${{ github.event.pull_request.head.ref }}-${{ matrix.namespace }} 
