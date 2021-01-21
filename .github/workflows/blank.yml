@@ -1,7 +1,6 @@
 on: 
   pull_request:
-    types: [ labeled ]
-
+    types: [ labeled, workflow_dispatched ]
 env:
   CLUSTER_NAME: aks-bjorn-erik
   CLUSTER_RESOURCE_GROUP: rg-idporten-aks-bjorn-erik
