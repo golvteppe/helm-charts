@@ -1,6 +1,5 @@
 on: 
-  pull_request:
-    types: [ labeled ]
+  workflow_dispatch:
 
 env:
   CLUSTER_NAME: aks-bjorn-erik
