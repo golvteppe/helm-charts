@@ -8,6 +8,7 @@ env:
 
 jobs:
   build:
+    if: ${{ github.event.label.name == 'ondemand' }}
     strategy:
       matrix:
         namespace: [codeceptjs, integration-test]
