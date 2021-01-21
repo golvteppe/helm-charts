@@ -10,7 +10,6 @@ jobs:
   build:
     if: contains(github.event.issue.labels.*.name, 'ondemand')
     strategy:
-      fail-fast: false
       matrix:
         namespace: [ codeceptjs, integration-test, regression-test]
     runs-on: ubuntu-latest
