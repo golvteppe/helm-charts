@@ -9,7 +9,7 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
                 const pulls = github.pulls.list({
-                    owner,
-                    repo,  
+                  owner: context.repo.owner,
+                   repo: context.repo.repo,  
                 })
                 console.log(pulls)
