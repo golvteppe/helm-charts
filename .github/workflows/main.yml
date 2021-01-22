@@ -1,7 +1,7 @@
 on: workflow_dispatch
 
 jobs:
-  welcome:
+  list-all-pulls:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v3
@@ -9,8 +9,7 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
                 const pulls = github.pulls.list({
-                    ...context.issue,
-                    creator,
-                    state: 'all'
+                    owner,
+                    repo,  
                 })
                 console.log(pulls)
