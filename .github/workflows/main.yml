@@ -12,4 +12,4 @@ jobs:
                   owner: context.repo.owner,
                    repo: context.repo.repo,  
                 })
-                console.log(pulls.data)
+                console.log(pulls.data[0].url)
