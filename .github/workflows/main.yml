@@ -12,5 +12,5 @@ jobs:
                     ...context.issue,
                     creator,
                     state: 'all'
-               })
-              console.log(pulls)
+                })
+                console.log(pulls)
