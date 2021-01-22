@@ -8,25 +8,9 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            const opts = github.issues.listForRepo.endpoint.merge({
-              ...context.issue,
-              creator,
-              state: 'all'
-            })
-
-            for (const issue of issues) {
-              if (issue.number === context.issue.number) {
-                continue
-              }
-
-              if (issue.pull_request) {
-                return // Creator is already a contributor.
-              }
-            }
-
-            await github.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: 'Welcome, new contributor!'
-            })
+                const pulls = github.pulls.list({
+                    ...context.issue,
+                    creator,
+                    state: 'all'
+               })
+              console.log(pulls)
