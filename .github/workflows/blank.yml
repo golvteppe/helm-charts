@@ -11,7 +11,7 @@ jobs:
     if: ${{ github.event.label.name == 'ondemand' }}
     strategy:
       matrix:
-        namespace: [codeceptjs, integration-test]
+        namespace: [sec-test, int-test, manual-test]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@main
